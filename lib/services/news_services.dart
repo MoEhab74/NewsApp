@@ -9,7 +9,7 @@ class NewsServices {
   Future<List<ArticleModel>> getTopHeadLines({required String category}) async {
     // Example of a GET request
     try {
-  Response response = await dio.get(
+      Response response = await dio.get(
     'https://newsapi.org/v2/top-headlines?country=us&apiKey=df5f5f637290450395c76fdb73e51c6c&category=$category',
   );
   // Convert the response data to json data
@@ -27,6 +27,7 @@ class NewsServices {
     );
   }
   return articlesList;
+  
 } catch (e) {
   return []; // Return an empty list if there is an error
   // return Future.error('Failed to load news: $e');
@@ -55,3 +56,16 @@ class NewsServices {
 //       ),
 //     );
 //   }
+
+
+
+
+
+
+
+
+
+
+
+
+

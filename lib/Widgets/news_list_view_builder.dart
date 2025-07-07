@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/Widgets/custom_indicator.dart';
+import 'package:news_app/Widgets/error_message.dart';
 import 'package:news_app/Widgets/news_list_view.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/services/news_services.dart';
@@ -50,24 +52,6 @@ class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
   }
 }
 
-class CustomIndicator extends StatelessWidget {
-  const CustomIndicator({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const CircularProgressIndicator();
-  }
-}
 
-class ErrorMessage extends StatelessWidget {
-  const ErrorMessage({super.key, required this.errorMessage});
-  final String errorMessage;
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      errorMessage,
-      style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-    );
-  }
-}
