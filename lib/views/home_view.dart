@@ -6,15 +6,17 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+    final titleFont = (mq.width * 0.06).clamp(18.0, 28.0);
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'News',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: titleFont,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -22,7 +24,7 @@ class HomeView extends StatelessWidget {
             Text(
               'Cloud',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: titleFont,
                 color: Colors.orange,
                 fontWeight: FontWeight.bold,
               ),

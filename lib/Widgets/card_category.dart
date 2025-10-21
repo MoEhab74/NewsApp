@@ -9,29 +9,55 @@ class CardCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+    final cardHeight = (mq.height * 0.13).clamp(80.0, 160.0);
+    final cardWidth = (mq.width * 0.45).clamp(120.0, 260.0);
+    final labelFont = (mq.width * 0.05).clamp(14.0, 22.0);
+
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => CategoryView(category: category.name,),),
         );
       },
-      child: Padding(
+        child: Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-        child: Container(
-          height: 120,
-          width: 180,
-          decoration: BoxDecoration(
+        child: SizedBox(
+          height: cardHeight,
+          width: cardWidth,
+          child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(image: AssetImage(category.image), fit: BoxFit.cover),
-          ),
-          child: Center(
-            child: Text(
-              category.name,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  category.image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 36,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  color: Colors.black26,
+                  child: Text(
+                    category.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: labelFont,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

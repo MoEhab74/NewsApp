@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
+// Use conditional platform implementations
+import 'webview_mobile.dart'
+    if (dart.library.html) 'webview_web.dart';
 
 class WebviewPage extends StatelessWidget {
   final String url;
@@ -8,12 +11,6 @@ class WebviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(url));
-
-    return Scaffold(
-      body: WebViewWidget(controller: controller),
-    );
+    return PlatformWebView(url: url);
   }
 }
