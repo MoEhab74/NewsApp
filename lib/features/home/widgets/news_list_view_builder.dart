@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/Widgets/custom_indicator.dart';
-import 'package:news_app/Widgets/error_message.dart';
-import 'package:news_app/Widgets/news_list_view.dart';
-import 'package:news_app/models/article_model.dart';
-import 'package:news_app/services/news_services.dart';
+import 'package:news_app/core/ui/custom_indicator.dart';
+import 'package:news_app/core/ui/error_message.dart';
+import 'package:news_app/features/home/widgets/news_list_view.dart';
+import 'package:news_app/features/home/models/article_model.dart';
+import 'package:news_app/core/services/news_services.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
   const NewsListViewBuilder({super.key, required this.category});

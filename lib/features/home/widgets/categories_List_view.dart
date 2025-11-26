@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:news_app/Widgets/card_category.dart';
-import 'package:news_app/models/category_model.dart';
+import 'package:news_app/features/home/widgets/card_category.dart';
+import 'package:news_app/features/home/models/category_model.dart';
 
 class CategoriesListView extends StatefulWidget {
   const CategoriesListView({super.key});
