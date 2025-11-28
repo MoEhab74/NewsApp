@@ -9,11 +9,27 @@ class NewsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Handle empty list case
+    if (articleNewsList.isEmpty) {
+      return const SliverFillRemaining(
+        hasScrollBody: false,
+        child: Center(
+          child: Text(
+            'No articles available',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ),
+      );
+    }
+
     return SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return NewsCategory(article: articleNewsList[index]);
-          }, childCount: articleNewsList.length),
-        );
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return NewsCategory(article: articleNewsList[index]);
+        }, 
+        childCount: articleNewsList.length,
+      ),
+    );
   }
 }
 

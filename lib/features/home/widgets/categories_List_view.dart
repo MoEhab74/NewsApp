@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/widgets/card_category.dart';
 import 'package:news_app/features/home/models/category_model.dart';
+import 'package:news_app/features/home/cubit/news_cubit.dart';
+import 'package:news_app/features/home/cubit/news_states.dart';
 
 class CategoriesListView extends StatefulWidget {
   const CategoriesListView({super.key});
@@ -11,7 +14,6 @@ class CategoriesListView extends StatefulWidget {
 }
 
 class _CategoriesListViewState extends State<CategoriesListView> {
-  final ScrollController _scrollController = ScrollController();
 
   final List<CategoryModel> categoriesInfo = const [
     CategoryModel(image: 'assets/business.avif', name: 'Business'),
@@ -26,46 +28,67 @@ class _CategoriesListViewState extends State<CategoriesListView> {
     CategoryModel(image: 'assets/technology.jpeg', name: 'Technology'),
   ];
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
     final listHeight = (mq.height * 0.13).clamp(80.0, 160.0);
 
-    return SizedBox(
-      height: listHeight,
-      child: Listener(
-        // Map vertical mouse wheel to horizontal scroll for web/desktop
-        onPointerSignal: (pointerSignal) {
-          if (pointerSignal is PointerScrollEvent) {
-            final scrollDelta = pointerSignal.scrollDelta.dy;
-            if (_scrollController.hasClients) {
-              final newOffset = (_scrollController.offset + scrollDelta).clamp(
-                _scrollController.position.minScrollExtent,
-                _scrollController.position.maxScrollExtent,
-              );
-              _scrollController.jumpTo(newOffset);
-            }
-          }
-        },
-        child: Scrollbar(
-          controller: _scrollController,
-          thumbVisibility: true,
-          child: ListView.builder(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            itemCount: categoriesInfo.length,
-            itemBuilder: (context, index) {
-              return CardCategory(category: categoriesInfo[index]);
-            },
-          ),
-        ),
-      ),
+    return BlocBuilder<NewsCubit, NewsState>(
+      builder: (context, state) {
+        String currentCategory = 'general'; // default
+        
+        // Get current category from cubit
+        if (state is FetchTopHeadlinesSuccessState) {
+          currentCategory = state.category;
+        } else if (state is FetchByCategorySuccessState) {
+          currentCategory = state.category;
+        } else {
+          currentCategory = context.read<NewsCubit>().currentCategory;
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              child: Text(
+                'Categories',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: listHeight,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categoriesInfo.length,
+                itemBuilder: (context, index) {
+                  final category = categoriesInfo[index];
+                  final isSelected = category.name.toLowerCase() == currentCategory.toLowerCase();
+                  
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    transform: Matrix4.identity()..scale(isSelected ? 1.05 : 1.0),
+                    child: Container(
+                      decoration: isSelected
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                            )
+                          : null,
+                      child: CardCategory(category: category),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

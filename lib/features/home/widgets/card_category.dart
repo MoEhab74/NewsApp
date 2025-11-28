@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/models/category_model.dart';
+import 'package:news_app/features/home/cubit/news_cubit.dart';
 import 'package:news_app/features/home/widgets/category_view.dart';
 
 class CardCategory extends StatelessWidget {
@@ -15,10 +17,18 @@ class CardCategory extends StatelessWidget {
     final labelFont = (mq.width * 0.05).clamp(14.0, 22.0);
 
     return GestureDetector(
-      onTap: (){
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => CategoryView(category: category.name,),),
-        );
+      onTap: () {
+        // Check if there's a NewsCubit in the widget tree
+        try {
+          context.read<NewsCubit>().fetchByCategory(category: category.name.toLowerCase());
+        } catch (e) {
+          // If we're not in the home view, navigate to category view
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CategoryView(category: category.name.toLowerCase()),
+            ),
+          );
+        }
       },
         child: Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
