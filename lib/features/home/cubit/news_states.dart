@@ -13,8 +13,6 @@ class FetchTopHeadlinesLoadingState extends NewsState {}
 
 class FetchByCategoryLoadingState extends NewsState {}
 
-class FetchMultipleCategoriesLoadingState extends NewsState {}
-
 // Success states
 class NewsSuccessState extends NewsState {
   final List<ArticleModel> articles;
@@ -29,10 +27,12 @@ class NewsSuccessState extends NewsState {
 class FetchTopHeadlinesSuccessState extends NewsState {
   final List<ArticleModel> articles;
   final String category;
+  final bool isFromCache;
 
   FetchTopHeadlinesSuccessState({
     required this.articles,
     required this.category,
+    this.isFromCache = false,
   });
 }
 
@@ -68,16 +68,6 @@ class FetchByCategorySuccessState extends NewsState {
   });
 }
 
-class FetchMultipleCategoriesSuccessState extends NewsState {
-  final List<ArticleModel> articles;
-  final List<String> categories;
-
-  FetchMultipleCategoriesSuccessState({
-    required this.articles,
-    required this.categories,
-  });
-}
-
 // Error states
 class NewsErrorState extends NewsState {
   final String errorMessage;
@@ -107,19 +97,4 @@ class FetchByCategoryErrorState extends NewsState {
   });
 }
 
-class FetchMultipleCategoriesErrorState extends NewsState {
-  final String errorMessage;
-  final List<String> categories;
-
-  FetchMultipleCategoriesErrorState({
-    required this.errorMessage,
-    required this.categories,
-  });
-}
-
 // Category selection state
-class CategorySelectedState extends NewsState {
-  final String selectedCategory;
-  
-  CategorySelectedState({required this.selectedCategory});
-}

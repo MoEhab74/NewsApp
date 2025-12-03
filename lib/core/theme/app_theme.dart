@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   // Primary Colors
@@ -13,7 +14,7 @@ class AppTheme {
     primarySwatch: Colors.orange,
     primaryColor: primaryOrange,
     scaffoldBackgroundColor: Colors.white,
-    
+
     // AppBar Theme
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
@@ -26,31 +27,27 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    
+
     // Card Theme
     cardTheme: CardThemeData(
       color: Colors.white,
       elevation: 2,
       shadowColor: Colors.black26,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
-    
+
     // Drawer Theme
     drawerTheme: DrawerThemeData(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
-    
+
     // List Tile Theme
     listTileTheme: const ListTileThemeData(
       iconColor: Colors.black54,
       textColor: Colors.black87,
     ),
-    
+
     // Text Theme
     textTheme: const TextTheme(
       headlineLarge: TextStyle(color: Colors.black87),
@@ -60,10 +57,18 @@ class AppTheme {
       bodyMedium: TextStyle(color: Colors.black87),
       bodySmall: TextStyle(color: Colors.black54),
     ),
-    
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryOrange,
       brightness: Brightness.light,
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppTheme.primaryOrange,
+        minimumSize: Size(double.infinity, 50.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
     ),
   );
 
@@ -74,7 +79,7 @@ class AppTheme {
     primarySwatch: Colors.orange,
     primaryColor: primaryOrange,
     scaffoldBackgroundColor: const Color(0xFF121212),
-    
+
     // AppBar Theme
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFF1E1E1E),
@@ -87,31 +92,27 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    
+
     // Card Theme
     cardTheme: CardThemeData(
       color: const Color(0xFF1E1E1E),
       elevation: 4,
       shadowColor: Colors.black54,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
-    
+
     // Drawer Theme
     drawerTheme: DrawerThemeData(
       backgroundColor: const Color(0xFF1E1E1E),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
-    
+
     // List Tile Theme
     listTileTheme: const ListTileThemeData(
       iconColor: Colors.white70,
       textColor: Color(0xFFE0E0E0),
     ),
-    
+
     // Text Theme
     textTheme: const TextTheme(
       headlineLarge: TextStyle(color: Color(0xFFE0E0E0)),
@@ -121,10 +122,18 @@ class AppTheme {
       bodyMedium: TextStyle(color: Color(0xFFE0E0E0)),
       bodySmall: TextStyle(color: Colors.white70),
     ),
-    
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryOrange,
       brightness: Brightness.dark,
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppTheme.primaryOrange,
+        minimumSize: Size(double.infinity, 50.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
     ),
   );
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/models/category_model.dart';
 import 'package:news_app/features/home/cubit/news_cubit.dart';
-import 'package:news_app/features/home/widgets/category_view.dart';
+import 'package:news_app/features/home/widgets/view_news_by_category.dart';
 
 class CardCategory extends StatelessWidget {
   const CardCategory({required this.category,super.key});

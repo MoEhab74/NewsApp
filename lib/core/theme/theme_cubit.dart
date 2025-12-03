@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,17 +7,24 @@ import 'theme_states.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   static const String _themeKey = 'theme_mode';
-  
+
   ThemeCubit() : super(const ThemeInitial()) {
     _loadTheme();
   }
 
+  ThemeMode get currentThemeMode => state.themeMode;
+
+  bool get isDarkMode => state.themeMode == ThemeMode.dark;
+
+  bool get isLightMode => state.themeMode == ThemeMode.light;
+
+  // Cubit provide an instance of ThemeState in itself which holds the current (state) theme mode
   /// Load the saved theme from SharedPreferences
   Future<void> _loadTheme() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final savedThemeIndex = prefs.getInt(_themeKey);
-      
+      // check if savedThemeIndex is not null and then get the ThemeMode
       if (savedThemeIndex != null) {
         final themeMode = ThemeMode.values[savedThemeIndex];
         switch (themeMode) {
@@ -30,26 +39,23 @@ class ThemeCubit extends Cubit<ThemeState> {
             break;
         }
       } else {
-        // Default to system theme if no preference saved
         emit(const ThemeInitial());
       }
     } catch (e) {
-      // If there's an error loading, default to system theme
+      log('Error while loading theme: $e');
       emit(const ThemeInitial());
     }
   }
 
-  /// Save the theme to SharedPreferences
   Future<void> _saveTheme(ThemeMode themeMode) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(_themeKey, themeMode.index);
     } catch (e) {
-      // Handle save error silently
+      log('Error while saving theme: $e');
     }
   }
 
-  /// Toggle between light and dark theme
   Future<void> toggleTheme() async {
     if (state.themeMode == ThemeMode.light) {
       emit(const ThemeDark());
@@ -59,7 +65,10 @@ class ThemeCubit extends Cubit<ThemeState> {
       await _saveTheme(ThemeMode.light);
     }
   }
+}
 
+
+/*
   /// Set specific theme mode
   Future<void> setThemeMode(ThemeMode themeMode) async {
     switch (themeMode) {
@@ -75,13 +84,4 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
     await _saveTheme(themeMode);
   }
-
-  /// Get current theme mode
-  ThemeMode get currentThemeMode => state.themeMode;
-  
-  /// Check if current theme is dark
-  bool get isDarkMode => state.themeMode == ThemeMode.dark;
-  
-  /// Check if current theme is light
-  bool get isLightMode => state.themeMode == ThemeMode.light;
-}
+*/

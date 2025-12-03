@@ -15,10 +15,20 @@ class ArticleModel {
   factory ArticleModel.fromJson({json}){
     return ArticleModel(
       image: json['urlToImage'],
-      title: json['title'],
+      title: json['title'] ?? 'No title available',
       subTitle: json['description'],
-      url: json['url'] 
+      url: json['url'] ?? ''
     );
+  }
+
+  /// Convert ArticleModel to JSON for caching
+  Map<String, dynamic> toJson() {
+    return {
+      'urlToImage': image,
+      'title': title,
+      'description': subTitle,
+      'url': url,
+    };
   }
 
   

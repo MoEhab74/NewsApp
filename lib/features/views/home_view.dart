@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/widgets/drawer_body.dart';
 import 'package:news_app/features/home/widgets/news_list_view_builder.dart';
-import 'package:news_app/features/home/widgets/categories_List_view.dart';
+import 'package:news_app/features/home/widgets/categories_list_view.dart';
 import 'package:news_app/features/home/cubit/news_cubit.dart';
 import 'package:news_app/features/home/cubit/news_states.dart';
 import 'package:news_app/features/home/widgets/search_text_field.dart';
@@ -110,9 +110,11 @@ class _HomeViewState extends State<HomeView> {
                       child: BlocBuilder<NewsCubit, NewsState>(
                         builder: (context, state) {
                           String currentCategory = 'general';
+                          bool isFromCache = false;
 
                           if (state is FetchTopHeadlinesSuccessState) {
                             currentCategory = state.category;
+                            isFromCache = state.isFromCache;
                           } else if (isSearching &&
                               state is SearchArticlesSuccessState) {
                             currentCategory = state.keyword;
@@ -132,33 +134,83 @@ class _HomeViewState extends State<HomeView> {
                               currentCategory[0].toUpperCase() +
                               currentCategory.substring(1);
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 16.0,
-                            ),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Top Headlines in ',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey[800],
+                          return Column(
+                            children: [
+                              // Cache indicator banner
+                              if (isFromCache)
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 8,
+                                  ),
+                                  margin: const EdgeInsets.only(bottom: 8,top: 16,left: 8,right: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Colors.orange.withOpacity(0.3),
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: categoryDisplayName,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.offline_bolt,
+                                        color: Colors.orange,
+                                        size: 16,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          'Offline Mode - Showing cached articles',
+                                          style: TextStyle(
+                                            color: Colors.orange[800],
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.wifi_off,
+                                        color: Colors.orange,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              // Category title
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 16.0,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Top Headlines in ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey[800],
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: categoryDisplayName,
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.orange,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         },
                       ),

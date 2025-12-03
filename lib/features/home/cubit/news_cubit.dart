@@ -27,10 +27,15 @@ class NewsCubit extends Cubit<NewsState> {
 
       if (response.isSuccess && response.data is List<ArticleModel>) {
         _currentCategory = category;
+        
+        // Check if this data came from cache
+        final isFromCache = response.errorMessage == 'CACHE_DATA';
+        
         emit(
           FetchTopHeadlinesSuccessState(
             articles: response.data as List<ArticleModel>,
             category: category,
+            isFromCache: isFromCache,
           ),
         );
       } else {
@@ -121,17 +126,6 @@ class NewsCubit extends Cubit<NewsState> {
         ),
       );
     }
-  }
-
-  /// Select a category (for UI state management)
-  void selectCategory({required String category}) {
-    _currentCategory = category;
-    emit(CategorySelectedState(selectedCategory: category));
-  }
-
-  /// Reset to initial state
-  void resetState() {
-    emit(NewsInitialState());
   }
 
   /// Refresh current news category

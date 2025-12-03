@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/widgets/card_category.dart';
 import 'package:news_app/features/home/models/category_model.dart';
@@ -16,16 +15,16 @@ class CategoriesListView extends StatefulWidget {
 class _CategoriesListViewState extends State<CategoriesListView> {
 
   final List<CategoryModel> categoriesInfo = const [
-    CategoryModel(image: 'assets/business.avif', name: 'Business'),
+    CategoryModel(image: 'assets/images/business.png', name: 'Business'),
     CategoryModel(
-      image: 'assets/entertaiment.avif',
+      image: 'assets/images/entertaiment.png',
       name: 'Entertainment',
     ),
-    CategoryModel(image: 'assets/general.avif', name: 'General'),
-    CategoryModel(image: 'assets/health.avif', name: 'Health'),
-    CategoryModel(image: 'assets/science.avif', name: 'Science'),
-    CategoryModel(image: 'assets/sports.avif', name: 'Sports'),
-    CategoryModel(image: 'assets/technology.jpeg', name: 'Technology'),
+    CategoryModel(image: 'assets/images/general.png', name: 'General'),
+    CategoryModel(image: 'assets/images/health.png', name: 'Health'),
+    CategoryModel(image: 'assets/images/science.png', name: 'Science'),
+    CategoryModel(image: 'assets/images/sports.png', name: 'Sports'),
+    CategoryModel(image: 'assets/images/technology.jpeg', name: 'Technology'),
   ];
 
   

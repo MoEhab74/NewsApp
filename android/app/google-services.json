@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518496449348",
+    "project_id": "newscloud-ca30d",
+    "storage_bucket": "newscloud-ca30d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518496449348:android:2ed8240191f0966fc75d11",
+        "android_client_info": {
+          "package_name": "com.example.news_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb3rsJlnPJP4ZijsXlVEBVE-4-qu6Sq1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
