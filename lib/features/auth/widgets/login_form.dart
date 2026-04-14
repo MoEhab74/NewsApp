@@ -6,7 +6,7 @@ import 'package:news_app/core/ui/app_text_form_field.dart';
 import 'package:news_app/features/auth/cubit/auth_cubit.dart';
 import 'package:news_app/features/auth/cubit/auth_state.dart';
 import 'package:news_app/features/auth/widgets/social_media_options.dart';
-import 'package:news_app/features/views/home_view.dart';
+import 'package:news_app/features/home/views/home_view.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key, required this.isDark});

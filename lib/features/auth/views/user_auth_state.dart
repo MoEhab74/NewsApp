@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/manager/user/user_manager.dart';
 import 'package:news_app/features/auth/views/login_view.dart';
-import 'package:news_app/features/views/home_view.dart';
+import 'package:news_app/features/home/views/home_view.dart';
 
 class UserAuthState extends StatelessWidget {
   const UserAuthState({super.key});

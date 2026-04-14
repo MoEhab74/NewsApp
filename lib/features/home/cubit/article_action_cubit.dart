@@ -9,6 +9,16 @@ import 'package:news_app/core/manager/saved_articles/saved_articles_manager.dart
 import 'package:news_app/core/manager/user/user_manager.dart';
 
 class ArticleActionCubit extends Cubit<ArticleActionState> {
+  // Problem without dependency injection
+  // This cubit depends on managers to perform its actions.
+  // Force the cubit to use these instances from singleton managers (Current instance).
+  // Benefit ===> Passing different instances during testing.
+  /*
+  final FavoritesManager _favoritesManager = FavoritesManager.instance;
+  final SavedArticlesManager _savedArticlesManager = SavedArticlesManager.instance;
+  final UserManager _userManager = UserManager.instance;
+  */
+  
   final FavoritesManager _favoritesManager;
   final SavedArticlesManager _savedArticlesManager;
   final UserManager _userManager;

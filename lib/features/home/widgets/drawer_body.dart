@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:news_app/core/theme/theme_exports.dart';
 import 'package:news_app/core/manager/user/user_manager.dart';
 import 'package:news_app/features/home/widgets/drawer_list_tile.dart';
-import 'package:news_app/features/views/favorites_view.dart';
-import 'package:news_app/features/views/saved_articles_view.dart';
+import 'package:news_app/features/favorites/favorites_view.dart';
+import 'package:news_app/features/saved_articles/saved_articles_view.dart';
 
 class DrawerBody extends StatelessWidget {
   const DrawerBody({super.key});
